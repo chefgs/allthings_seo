@@ -183,4 +183,69 @@ window.ATS_GLOSSARY = [
     definition:
       "Queries spoken to assistants (Siri, Alexa, Google Assistant). Tend to be longer and more conversational — optimize with natural language and FAQs.",
   },
+  {
+    term: "Google Tag Manager (GTM)",
+    definition:
+      "A free tag management system that lets you add, edit, and remove tracking tags (pixels, analytics scripts) from a web dashboard without touching your site's source code.",
+  },
+  {
+    term: "Meta Pixel (Facebook Pixel)",
+    definition:
+      "A JavaScript snippet from Meta that tracks visitor actions (PageView, Purchase, Lead) on your site, enabling remarketing audiences, ad optimization, and conversion measurement on Facebook and Instagram.",
+  },
+  {
+    term: "Conversions API (CAPI)",
+    definition:
+      "A server-to-server integration from Meta that sends conversion events directly from your backend to Meta, bypassing browser limitations like ad blockers and iOS privacy restrictions.",
+  },
+  {
+    term: "UTM parameters",
+    definition:
+      "Query string tags (utm_source, utm_medium, utm_campaign, utm_content, utm_term) added to URLs so analytics tools can attribute traffic to specific campaigns, channels, and creatives.",
+  },
+  {
+    term: "GA4 (Google Analytics 4)",
+    definition:
+      "Google's current analytics platform. Event-based (not session-based). Tracks user interactions as events, lets you mark important ones as conversions, and connects to Search Console and Google Ads.",
+  },
+  {
+    term: "Conversion",
+    definition:
+      "A completed action that matters to your business — a purchase, a sign-up, a lead form submission. In GA4, you mark specific events as conversions to track them.",
+  },
+  {
+    term: "LinkedIn Insight Tag",
+    definition:
+      "A JavaScript snippet from LinkedIn that enables conversion tracking, website audience retargeting, and demographic reporting for LinkedIn Ads campaigns.",
+  },
+  {
+    term: "Consent Management Platform (CMP)",
+    definition:
+      "Software (e.g. Cookiebot, OneTrust) that displays a cookie/privacy banner, collects user consent choices, and signals to tag managers which categories of tags may fire.",
+  },
+  {
+    term: "Consent Mode",
+    definition:
+      "A Google feature (v2) that adjusts how Google tags behave based on user consent status. When consent is denied, tags send cookieless pings; Google models the missing conversions.",
+  },
+  {
+    term: "dataLayer",
+    definition:
+      "A JavaScript array used by GTM to receive structured data (events, variables) from your website. Pushing an object to dataLayer triggers GTM tags based on matching rules.",
+  },
+  {
+    term: "Attribution",
+    definition:
+      "The process of assigning credit for a conversion to the marketing touchpoints (ads, emails, organic visits) that contributed to it. Models include last-click, first-click, and data-driven.",
+  },
+  {
+    term: "Retargeting (Remarketing)",
+    definition:
+      "Showing ads to people who have already visited your website or interacted with your content. Requires a pixel or audience list from platforms like Meta, Google, or LinkedIn.",
+  },
+  {
+    term: "Cross-domain tracking",
+    definition:
+      "A GA4 configuration that maintains a single user session when visitors navigate between multiple domains you own (e.g. shop.yoursite.com → checkout.yoursite.com).",
+  },
 ];

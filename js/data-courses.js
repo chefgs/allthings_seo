@@ -434,4 +434,81 @@ window.ATS_COURSES = [
         "Position 9 means it's visible on page 1. A 1.1% CTR is below average for that position, which almost always means the title/meta aren't compelling. Rewriting them is the highest-ROI fix.",
     },
   },
+  {
+    id: "tracking-attribution",
+    level: "Advanced",
+    icon: "8",
+    title: "Tracking & Attribution for Marketers",
+    tagline: "Connect every campaign to revenue — pixels, tags, UTMs, and consent.",
+    duration: "55 min",
+    lessons: [
+      {
+        title: "Google Tag Manager: one container to rule them all",
+        summary:
+          "GTM lets you add and manage tracking tags without touching your website's code.",
+        body:
+          "Google Tag Manager is a free tag management system. Instead of hard-coding every pixel and script into your HTML, you install one GTM container snippet, then add, edit, or remove tags (Meta Pixel, GA4, Google Ads, LinkedIn, etc.) from a web dashboard. Tags fire based on 'triggers' (page view, button click, form submit) and pass data through 'variables'. This means marketers can ship tracking changes in minutes without waiting for a developer.",
+        keyPoint:
+          "One snippet to install. All tags managed from a dashboard. No code deploys needed.",
+      },
+      {
+        title: "GA4: events, conversions, and traffic sources",
+        summary:
+          "Google Analytics 4 is event-based — every interaction is an event, and you mark the important ones as conversions.",
+        body:
+          "GA4 replaced Universal Analytics with an event-driven model. A 'page_view' is an event. A 'purchase' is an event. A 'sign_up' is an event. You choose which events count as conversions. Set up traffic source grouping (organic, paid, social, email, direct) to see which channels drive those conversions. The Acquisition report shows first-touch; the Engagement report shows behavior; the Monetization report shows revenue. Connect GA4 to Search Console for a unified organic view.",
+        keyPoint:
+          "Mark your money events as conversions. Everything else is noise.",
+      },
+      {
+        title: "Meta (Facebook) Pixel and Conversions API",
+        summary:
+          "The Meta Pixel tracks visitor actions on your site so you can build audiences, optimize ads, and measure conversions.",
+        body:
+          "The Meta Pixel is a JavaScript snippet you place on your site (ideally via GTM). It fires standard events like PageView, ViewContent, AddToCart, Lead, and Purchase. These events feed Meta's ad algorithm so it can find more people like your converters. Because browser privacy changes (iOS 14+, cookie blockers) degrade pixel accuracy, Meta also offers the Conversions API (CAPI) — a server-to-server connection that sends the same events directly from your backend, bypassing the browser. Best practice: run both Pixel and CAPI with deduplication so Meta gets the most complete data.",
+        keyPoint:
+          "Pixel = browser-side tracking. CAPI = server-side. Run both for maximum signal.",
+      },
+      {
+        title: "UTM parameters: tag every campaign link",
+        summary:
+          "UTMs are query parameters you add to URLs so analytics tools know exactly which campaign, source, and medium drove each visit.",
+        body:
+          "A UTM-tagged URL looks like: yoursite.com/sale?utm_source=facebook&utm_medium=paid_social&utm_campaign=summer_sale&utm_content=hero_banner. The five parameters are: source (where — facebook, google, newsletter), medium (how — cpc, email, organic_social), campaign (why — summer_sale, launch_v2), term (keyword, for paid search), content (which creative variant). Without UTMs, GA4 lumps everything into 'direct' or 'unassigned'. With UTMs, you see exactly which ad, email, or post drove each conversion.",
+        keyPoint:
+          "No UTMs = no attribution. Every external link to your site needs them.",
+      },
+      {
+        title: "LinkedIn Insight Tag, Google Ads tag, and other pixels",
+        summary:
+          "Each ad platform has its own pixel — install them all through GTM to avoid code bloat.",
+        body:
+          "The LinkedIn Insight Tag lets you retarget website visitors on LinkedIn and track conversions from LinkedIn Ads. The Google Ads tag (gtag.js or via GTM) tracks conversions from Google Search, Display, and YouTube campaigns. TikTok Pixel, Pinterest Tag, X (Twitter) Pixel — same pattern. Install each through GTM as a Custom HTML tag or use the platform's native GTM template. Fire them on the same triggers (page view for base, custom events for conversions). This way, every platform sees the same data, and you manage it all in one place.",
+        keyPoint:
+          "One GTM container + one trigger config = every ad platform tracked consistently.",
+      },
+      {
+        title: "Consent management and privacy compliance",
+        summary:
+          "GDPR, CCPA, and browser privacy changes mean you must get consent before tracking — and honor it.",
+        body:
+          "A Consent Management Platform (CMP) like Cookiebot, OneTrust, or Google's built-in Consent Mode shows a cookie banner and collects user choices. GTM's Consent Mode lets tags check consent state before firing — if a user declines marketing cookies, the Meta Pixel won't load. This isn't optional: GDPR fines reach 4% of global revenue, and CCPA gives users the right to opt out of sale/sharing. Set up consent first, then configure each tag to respect it. Google's Consent Mode v2 also models conversions from users who decline, so you don't lose all measurement.",
+        keyPoint:
+          "No consent = no tracking (legally). Set up your CMP before you add any pixel.",
+      },
+    ],
+    quiz: {
+      question:
+        "A marketer shares a link to their blog on LinkedIn but doesn't add UTM parameters. In GA4, this traffic will most likely show as:",
+      options: [
+        "linkedin / paid_social",
+        "linkedin / organic_social with full campaign data",
+        "direct / (none) or unassigned — with no campaign detail",
+        "social / linkedin with conversion data",
+      ],
+      answer: 2,
+      explain:
+        "Without UTM parameters, GA4 may detect the referrer as LinkedIn but will have no campaign, medium, or content data. Depending on the app/browser, it may even appear as 'direct'. UTMs are the only reliable way to get full attribution.",
+    },
+  },
 ];

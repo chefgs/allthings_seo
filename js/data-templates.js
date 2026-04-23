@@ -655,6 +655,184 @@ window.ATS_TEMPLATES = [
       };
     },
   },
+
+  {
+    id: "campaign-tracking",
+    category: "Marketing",
+    title: "Campaign Tracking Setup",
+    icon: "T",
+    summary:
+      "Generate UTM-tagged URLs and a GTM tag plan for any marketing campaign — Meta Pixel, GA4, LinkedIn, and more.",
+    fields: [
+      {
+        key: "campaignName",
+        label: "Campaign name",
+        hint: "Lowercase, no spaces — this becomes utm_campaign",
+        type: "text",
+        default: "summer_sale_2024",
+      },
+      {
+        key: "baseUrl",
+        label: "Landing page URL",
+        hint: "The destination URL without any parameters",
+        type: "text",
+        default: "https://yourstore.com/summer-sale",
+      },
+      {
+        key: "source",
+        label: "Source (utm_source)",
+        hint: "Where the traffic comes from — facebook, google, newsletter, linkedin",
+        type: "text",
+        default: "facebook",
+      },
+      {
+        key: "medium",
+        label: "Medium (utm_medium)",
+        hint: "How it arrives — paid_social, cpc, email, organic_social",
+        type: "text",
+        default: "paid_social",
+      },
+      {
+        key: "content",
+        label: "Content variant (utm_content)",
+        hint: "Which creative — hero_video, sidebar_banner, email_cta",
+        type: "text",
+        default: "hero_video",
+      },
+      {
+        key: "metaPixelId",
+        label: "Meta Pixel ID",
+        hint: "Found in Meta Events Manager → Data Sources (e.g. 123456789012345)",
+        type: "text",
+        default: "123456789012345",
+      },
+      {
+        key: "ga4MeasurementId",
+        label: "GA4 Measurement ID",
+        hint: "Starts with G- (e.g. G-XXXXXXXXXX)",
+        type: "text",
+        default: "G-XXXXXXXXXX",
+      },
+      {
+        key: "linkedinPartnerId",
+        label: "LinkedIn Partner ID (optional)",
+        hint: "Found in LinkedIn Campaign Manager → Insight Tag",
+        type: "text",
+        default: "1234567",
+      },
+      {
+        key: "conversionEvent",
+        label: "Primary conversion event",
+        hint: "The action you're optimising for — Purchase, Lead, SignUp, AddToCart",
+        type: "text",
+        default: "Purchase",
+      },
+      {
+        key: "title",
+        label: "SEO title (for landing page)",
+        type: "text",
+        max: 60,
+        default: "Summer Sale 2024 — Up to 40% Off | YourStore",
+      },
+      {
+        key: "metaDescription",
+        label: "Meta description (for landing page)",
+        type: "textarea",
+        max: 160,
+        default:
+          "Shop the Summer Sale. Up to 40% off sitewide. Free shipping over $50. Ends June 30.",
+      },
+    ],
+    render(values) {
+      const params = new URLSearchParams();
+      params.set("utm_source", values.source || "source");
+      params.set("utm_medium", values.medium || "medium");
+      params.set("utm_campaign", values.campaignName || "campaign");
+      if (values.content) params.set("utm_content", values.content);
+      const taggedUrl = `${values.baseUrl || "https://yoursite.com"}?${params.toString()}`;
+
+      const gtmPlan = `── GTM Tag Plan for "${values.campaignName}" ──
+
+1. GA4 Configuration Tag
+   Tag type:  Google Analytics: GA4 Configuration
+   Measurement ID: ${values.ga4MeasurementId}
+   Trigger:   All Pages
+
+2. GA4 Conversion Event Tag
+   Tag type:  Google Analytics: GA4 Event
+   Event name: ${(values.conversionEvent || "purchase").toLowerCase()}
+   Trigger:   Custom event — "${(values.conversionEvent || "purchase").toLowerCase()}"
+
+3. Meta (Facebook) Pixel — Base
+   Tag type:  Custom HTML
+   Trigger:   All Pages (with Consent: Marketing = granted)
+   Code:
+   <script>
+     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
+     n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+     if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+     n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+     s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+     (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+     fbq('init', '${values.metaPixelId}');
+     fbq('track', 'PageView');
+   </script>
+
+4. Meta Pixel — Conversion Event
+   Tag type:  Custom HTML
+   Trigger:   Custom event — "${(values.conversionEvent || "purchase").toLowerCase()}"
+   Code:      fbq('track', '${values.conversionEvent}');
+
+5. LinkedIn Insight Tag
+   Tag type:  Custom HTML (or LinkedIn template)
+   Partner ID: ${values.linkedinPartnerId}
+   Trigger:   All Pages (with Consent: Marketing = granted)
+
+── Consent Mode ──
+   Enable GTM Consent Mode v2.
+   Set all marketing tags to require "ad_storage" = granted.
+   Use a CMP (Cookiebot, OneTrust) to collect consent.`;
+
+      return {
+        title: values.title,
+        metaDescription: values.metaDescription,
+        url: taggedUrl,
+        htmlHead: `<title>${esc(values.title)}</title>
+<meta name="description" content="${esc(values.metaDescription)}" />
+<link rel="canonical" href="${esc(values.baseUrl)}" />
+<meta property="og:title" content="${esc(values.title)}" />
+<meta property="og:description" content="${esc(values.metaDescription)}" />
+
+<!-- Google Tag Manager (head) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>`,
+        jsonLd: JSON.stringify(
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: values.title,
+            description: values.metaDescription,
+            url: values.baseUrl,
+            potentialAction: {
+              "@type": "BuyAction",
+              target: values.baseUrl,
+            },
+          },
+          null,
+          2
+        ),
+        outline: [
+          `── UTM-Tagged URL ──`,
+          taggedUrl,
+          ``,
+          ...gtmPlan.split("\n"),
+        ],
+      };
+    },
+  },
 ];
 
 /* =========================================================
