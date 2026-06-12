@@ -196,7 +196,7 @@ window.ATS_COURSES = [
     icon: "4",
     title: "Technical SEO",
     tagline: "Remove the invisible obstacles that stop good content from ranking.",
-    duration: "50 min",
+    duration: "65 min",
     lessons: [
       {
         title: "Page speed and Core Web Vitals",
@@ -224,6 +224,24 @@ window.ATS_COURSES = [
           "Submit an XML sitemap to Google Search Console. Keep it under 50k URLs per file. Use robots.txt to block junk (admin, search result pages, staging) — never block things you want ranked. Double-check disallows before shipping.",
         keyPoint:
           "Blocking your whole site in robots.txt is the #1 way to ruin an SEO launch.",
+      },
+      {
+        title: "Bing Webmaster Tools: manual URL submission",
+        summary:
+          "Manual submission in Bing Webmaster Tools is useful for small batches and one-off indexing nudges.",
+        body:
+          "After publishing, open your verified site in Bing Webmaster Tools and submit the new URLs through the URL submission feature. Use this when you have a handful of fresh posts or need to quickly re-ping updated pages. It does not replace quality content or internal linking, but it can speed up discovery.",
+        keyPoint:
+          "Manual Bing submission is best for quick, small-batch updates — not your long-term automation layer.",
+      },
+      {
+        title: "IndexNow: automate discovery at publish time",
+        summary:
+          "IndexNow lets you notify search engines immediately when URLs are created, updated, or removed.",
+        body:
+          "Generate an IndexNow key (8–128 characters), host the matching .txt key file at your site root, then submit URLs to https://www.bing.com/indexnow. You can submit one URL via query string or up to 10,000 URLs in a JSON batch. Common responses: 200 (received), 202 (accepted, pending validation), 403 (invalid key), 422 (host mismatch), and 429 (rate limited).",
+        keyPoint:
+          "For active blogs, IndexNow in your publish flow is the scalable option; manual submission is the backup.",
       },
       {
         title: "Structured data (schema.org)",
@@ -264,7 +282,7 @@ window.ATS_COURSES = [
     icon: "5",
     title: "Content Strategy That Ranks",
     tagline: "Publish fewer pages, but make each one obviously the best answer.",
-    duration: "50 min",
+    duration: "58 min",
     lessons: [
       {
         title: "Topic clusters and pillar pages",
@@ -274,6 +292,15 @@ window.ATS_COURSES = [
           "Build a pillar like '/guides/email-marketing' that covers the whole topic at a high level. Then build 10–20 cluster posts ('welcome emails', 'segmentation', 'open rates') that each link back to the pillar. Google recognizes this structure as topical authority.",
         keyPoint:
           "Depth beats breadth. Own a topic rather than dabbling in many.",
+      },
+      {
+        title: "Batch publishing without cannibalization",
+        summary:
+          "Publishing multiple blog posts at once is fine; overlap and weak differentiation are the real risks.",
+        body:
+          "A 6-post batch around one theme (like ai-cloud) can strengthen topical authority if each post targets a distinct intent and all pages are strongly interlinked. Problems happen when multiple posts target near-identical keyword angles. Keep one clear topic hub, differentiate each post's intent, and monitor indexing/impressions for 2–6 weeks before judging performance.",
+        keyPoint:
+          "Batch size does not hurt SEO by itself — poor differentiation and weak internal linking do.",
       },
       {
         title: "E-E-A-T: Experience, Expertise, Authority, Trust",
